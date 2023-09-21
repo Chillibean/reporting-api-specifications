@@ -14,14 +14,19 @@ The most critical file here is **`/public/openApi.json`**. This file serves as t
 
 **If the repo already exists, follow these steps:**
 
-1. Install all dependencies by running:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Chillibean/reporting-api-specifications.git
+
+   ```
+2. Install all dependencies by running:
     
     ```bash
     npm install
     
     ```
     
-2. Start the development environment:
+3. Start the development environment:
     
     ```bash
     npm run dev
@@ -30,7 +35,7 @@ The most critical file here is **`/public/openApi.json`**. This file serves as t
     
     This will initiate a development server running on port 5173. Follow the instructions in the terminal. Our setup uses Swagger UI to provide a user-friendly interface for your development needs.
     
-3. Happy Hacking!
+4. Happy Hacking!
 
 Before you start, it's crucial to understand our Versioning and Branches guidelines. We've also provided a Developing Workflow Example to help you understand the development process.
 
