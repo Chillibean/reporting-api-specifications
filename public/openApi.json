@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
+    "version": "1.0.0-alpha.0",
     "title": "Reporting API",
-    "description": "This is the api spec for all things related to reporting.",
+    "description": "This is the API specifications for all the endpoints that have to do with the reporting service.",
     "contact": {
       "name": "ChilliPharm",
       "url": "https://www.chillipharm.com"
@@ -11,8 +11,16 @@
   },
   "tags": [
     {
-      "name": "Example",
-      "description": "Example endpoints"
+      "name": "Assets",
+      "description": "Endpoints for assets reporting"
+    },
+    {
+      "name": "Form Templates",
+      "description": "Endpoints for form templates relating to reporting"
+    },
+    {
+      "name": "Forms",
+      "description": "Endpoints for forms reporting"
     }
   ],
   "servers": [
@@ -26,9 +34,85 @@
     }
   ],
   "paths": {
-    "/example": {
+    "/accounts/{account_id}/reporting/assets/searches/new": {
       "get": {
-        "summary": "Example endpoint",
+        "summary": "Get all assets",
+        "operationId": "getAssets",
+        "description": "Get all account assets for reporting",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "The number of assets per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "description": "The search term in JSON to handle any filtering",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "{\"all_info_fields_must_match\":\"true\",\"relative_upload_time_range\":\"all_time\",\"search_fields\":{},\"static_search_fields\":{\"library_id\":[4],\"id\":[],\"uploader.id\":[]}}"
+            }
+          }
+        ],
+        "tags": [
+          "Assets"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assets"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/assets/searches/export": {
+      "get": {
+        "summary": "Export assets",
         "security": [
           {
             "userSessionKey": []
@@ -37,21 +121,78 @@
             "chillipharmSession": []
           }
         ],
-        "operationId": "getExample",
-        "description": "This is an example endpoint",
+        "operationId": "exportAssets",
+        "description": "Export assets for reporting",
         "parameters": [
           {
-            "name": "example",
-            "in": "query",
-            "description": "Example parameter",
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "2"
             }
           }
         ],
         "tags": [
-          "Example"
+          "Assets"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful export",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "example": "PK!�E�@J,[Content_Types].xml���"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/form_templates": {
+      "get": {
+        "summary": "Get all form templates",
+        "security": [
+          {
+            "userSessionKey": []
+          },
+          {
+            "chillipharmSession": []
+          }
+        ],
+        "operationId": "getFormTemplates",
+        "description": "Get all account form templates for forms reporting",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          }
+        ],
+        "tags": [
+          "Form Templates"
         ],
         "responses": {
           "200": {
@@ -59,7 +200,265 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExampleResponse"
+                  "$ref": "#/components/schemas/FormTemplates"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/assets/static_filters": {
+      "get": {
+        "summary": "Get all static filters",
+        "security": [
+          {
+            "userSessionKey": []
+          },
+          {
+            "chillipharmSession": []
+          }
+        ],
+        "operationId": "getStaticFilters",
+        "description": "Get all account static filters for forms reporting to be used in the filter modal static dropdowns",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          }
+        ],
+        "tags": [
+          "Assets"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaticFilters"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/assets/searches/searchable_attributes": {
+      "get": {
+        "summary": "Get all searchable attributes",
+        "security": [
+          {
+            "userSessionKey": []
+          },
+          {
+            "chillipharmSession": []
+          }
+        ],
+        "operationId": "getSearchableAttributes",
+        "description": "Get all account searchable attributes for assets in a specific account",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          }
+        ],
+        "tags": [
+          "Assets"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchableAttributes"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/forms/searches/new": {
+      "get": {
+        "summary": "Get all forms",
+        "security": [
+          {
+            "userSessionKey": []
+          },
+          {
+            "chillipharmSession": []
+          }
+        ],
+        "operationId": "getForms",
+        "description": "Get all account forms for reporting",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "The number of forms per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "The search term to determine the form template",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "{\"form_template_id\":\"2\"}"
+            }
+          }
+        ],
+        "tags": [
+          "Forms"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forms"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/reporting/forms/searches/export": {
+      "get": {
+        "summary": "Export forms",
+        "security": [
+          {
+            "userSessionKey": []
+          },
+          {
+            "chillipharmSession": []
+          }
+        ],
+        "operationId": "exportForms",
+        "description": "Export forms for reporting",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "The account id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "The search term to determine the form template",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "{\"form_template_id\":\"2\"}"
+            }
+          }
+        ],
+        "tags": [
+          "Forms"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful export",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "example": "PK!�E�@J,[Content_Types].xml���"
                 }
               }
             }
@@ -96,11 +495,899 @@
       }
     },
     "schemas": {
-      "ExampleResponse": {
+      "Forms": {
+        "description": "A list of forms",
         "type": "object",
         "properties": {
-          "example": {
-            "type": "string"
+          "hits": {
+            "type": "number",
+            "description": "The total number of forms",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "description": "The current page number",
+            "example": 1
+          },
+          "trial_name": {
+            "type": "string",
+            "description": "The trial name",
+            "example": "Trial 1"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Form"
+            }
+          }
+        }
+      },
+      "Form": {
+        "description": "A form",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The form id",
+            "example": 1
+          },
+          "version_number": {
+            "type": "integer",
+            "description": "The form version number",
+            "example": 1
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The form creation date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "signatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Signature"
+            }
+          },
+          "current_state": {
+            "$ref": "#/components/schemas/State"
+          },
+          "current_transitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transition"
+            }
+          },
+          "library": {
+            "$ref": "#/components/schemas/LibraryForForm"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "trial_name": {
+            "type": "string",
+            "description": "The trial name",
+            "example": "Trial 1"
+          },
+          "library_name": {
+            "type": "string",
+            "description": "The library name",
+            "example": "Library 1"
+          },
+          "asset_id": {
+            "type": "integer",
+            "description": "The asset id",
+            "example": 1
+          },
+          "asset_upload_date": {
+            "type": "string",
+            "description": "The asset upload date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "asset_title": {
+            "type": "string",
+            "description": "The asset title",
+            "example": "Asset 1"
+          },
+          "asset_link": {
+            "type": "string",
+            "description": "The asset link",
+            "example": "https://www.chillipharm.com"
+          },
+          "form_template": {
+            "$ref": "#/components/schemas/FormTemplate"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "The form uuid",
+            "example": "c74a0ef6-5378-493c-8000-38ce8a72a795"
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/History"
+            }
+          },
+          "audience": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Audience"
+            }
+          },
+          "form_link": {
+            "type": "string",
+            "description": "The form link",
+            "example": "https://www.chillipharm.com"
+          },
+          "version_history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/History"
+            }
+          }
+        }
+      },
+      "Field": {
+        "description": "A field",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The field id",
+            "example": "bb32c03b-72b9-42f7-bb14-5d4ce7f82d5c"
+          },
+          "title": {
+            "type": "string",
+            "description": "The field title",
+            "example": "Single line no validation"
+          },
+          "type": {
+            "type": "string",
+            "description": "The field type",
+            "example": "single_line"
+          },
+          "input_guidance": {
+            "type": "string",
+            "description": "The field input guidance",
+            "example": "This field not required validation"
+          },
+          "value": {
+            "type": "string",
+            "description": "The field value",
+            "example": "Text"
+          },
+          "validations": {
+            "type": "object",
+            "description": "The field validations",
+            "properties": {
+              "required": {
+                "type": "boolean",
+                "description": "The field required validation",
+                "example": true
+              },
+              "input_format": {
+                "type": "string",
+                "description": "The field input format validation",
+                "example": "email"
+              },
+              "character_limit": {
+                "type": "integer",
+                "description": "The field character limit validation",
+                "example": 100
+              },
+              "character_restriction": {
+                "type": "string",
+                "description": "The field character restriction validation",
+                "example": "alpha"
+              }
+            }
+          },
+          "options": {
+            "type": "array",
+            "description": "The field options",
+            "items": {
+              "type": "string",
+              "example": "Option 1"
+            }
+          },
+          "other_enabled": {
+            "type": "boolean",
+            "description": "The field other enabled",
+            "example": true
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "The field enabled",
+            "example": true
+          }
+        }
+      },
+      "Signature": {
+        "description": "A signature",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The signature id",
+            "example": "64ccf8852eed6a0011a41893"
+          },
+          "email": {
+            "type": "string",
+            "description": "The signature email",
+            "example": "example@gmail.com"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The signature first name",
+            "example": "First"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The signature last name",
+            "example": "Last"
+          },
+          "meaning": {
+            "type": "string",
+            "description": "The signature meaning",
+            "example": "Authorship"
+          },
+          "reason": {
+            "type": "string",
+            "description": "The signature reason",
+            "example": "I am the author of this document"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The signature creation date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "object_uuid": {
+            "type": "string",
+            "description": "The signature object uuid",
+            "example": "c74a0ef6-5378-493c-8000-38ce8a72a795"
+          },
+          "user_uuid": {
+            "type": "string",
+            "description": "The signature user uuid",
+            "example": "cded555c-3730-4711-a018-081a928fbfbf"
+          },
+          "verification_status": {
+            "type": "boolean",
+            "description": "The signature verification status",
+            "example": true
+          }
+        }
+      },
+      "State": {
+        "description": "A state",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The state id",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "The state name",
+            "example": "Rejected"
+          },
+          "type": {
+            "type": "string",
+            "description": "The state type",
+            "example": "rejected"
+          },
+          "options": {
+            "type": "object",
+            "description": "The state options",
+            "properties": {
+              "editable": {
+                "type": "boolean",
+                "description": "The state editable option",
+                "example": true
+              },
+              "deletable": {
+                "type": "boolean",
+                "description": "The state deletable option",
+                "example": true
+              },
+              "can_add_comments": {
+                "type": "boolean",
+                "description": "The state can add comments option",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "Transition": {
+        "description": "A transition",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The transition id",
+            "example": "dfe077d7-47c8-4d78-821b-72b07483831c"
+          },
+          "name": {
+            "type": "string",
+            "description": "The transition name",
+            "example": "Reinstate"
+          },
+          "requires_signatures": {
+            "type": "array",
+            "description": "The transition requires signatures",
+            "items": {
+              "$ref": "#/components/schemas/Signature"
+            }
+          },
+          "audience": {
+            "type": "array",
+            "description": "The transition audience",
+            "items": {
+              "$ref": "#/components/schemas/Audience"
+            }
+          },
+          "options": {
+            "type": "object",
+            "description": "The transition options",
+            "properties": {
+              "skip_validation": {
+                "type": "boolean",
+                "description": "The transition skip validation option",
+                "example": true
+              }
+            }
+          },
+          "activity_text": {
+            "type": "string",
+            "description": "The transition activity text",
+            "example": "Reinstated"
+          },
+          "signature_definitions": {
+            "type": "array",
+            "description": "The transition signature definitions",
+            "items": {
+              "$ref": "#/components/schemas/SignatureDefinition"
+            }
+          },
+          "requires_reason_for_change": {
+            "type": "boolean",
+            "description": "The transition requires reason for change",
+            "example": true
+          },
+          "requires_review_comments": {
+            "type": "boolean",
+            "description": "The transition requires review comments",
+            "example": true
+          }
+        }
+      },
+      "SignatureDefinition": {
+        "description": "A signature definition",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The signature definition id",
+            "example": "64ccf8852eed6a0011a41893"
+          },
+          "meaning": {
+            "type": "string",
+            "description": "The signature definition meaning",
+            "example": "Authorship"
+          },
+          "reason": {
+            "type": "string",
+            "description": "The signature definition reason",
+            "example": "I am the author of this document"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The signature definition creation date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "object_uuid": {
+            "type": "string",
+            "description": "The signature definition object uuid",
+            "example": "c74a0ef6-5378-493c-8000-38ce8a72a795"
+          },
+          "user_uuid": {
+            "type": "string",
+            "description": "The signature definition user uuid",
+            "example": "cded555c-3730-4711-a018-081a928fbfbf"
+          },
+          "verification_status": {
+            "type": "boolean",
+            "description": "The signature definition verification status",
+            "example": true
+          }
+        }
+      },
+      "History": {
+        "description": "A history",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The history id",
+            "example": "67e3029e-6e17-4566-879b-ebcb4401dd50"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "The history user id",
+            "example": 1
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The history creation date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "user_email": {
+            "type": "string",
+            "description": "The history user email",
+            "example": "example@gmail.com"
+          },
+          "user_first_name": {
+            "type": "string",
+            "description": "The history user first name",
+            "example": "First"
+          },
+          "user_last_name": {
+            "type": "string",
+            "description": "The history user last name",
+            "example": "Last"
+          },
+          "from_state_id": {
+            "type": "integer",
+            "description": "The history from state id",
+            "example": 1
+          },
+          "to_state_id": {
+            "type": "integer",
+            "description": "The history to state id",
+            "example": 1
+          },
+          "from_state_name": {
+            "type": "string",
+            "description": "The history from state name",
+            "example": "Rejected"
+          },
+          "to_state_name": {
+            "type": "string",
+            "description": "The history to state name",
+            "example": "Rejected"
+          },
+          "transition_id": {
+            "type": "integer",
+            "description": "The history transition id",
+            "example": 1
+          },
+          "transition_name": {
+            "type": "string",
+            "description": "The history transition name",
+            "example": "Create"
+          },
+          "transition_completed": {
+            "type": "boolean",
+            "description": "The history transition completed",
+            "example": true
+          },
+          "transition_activity_text": {
+            "type": "string",
+            "description": "The history transition activity text",
+            "example": "created"
+          },
+          "form_version_number": {
+            "type": "integer",
+            "description": "The history form version number",
+            "example": 1
+          },
+          "users_notified": {
+            "type": "array",
+            "description": "The history users notified",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "reason_for_change": {
+            "type": "string",
+            "description": "The history reason for change",
+            "example": "Reason for change"
+          }
+        }
+      },
+      "Audience": {
+        "description": "An audience",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The audience id",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The audience first name",
+            "example": "First"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The audience last name",
+            "example": "Last"
+          },
+          "email": {
+            "type": "string",
+            "description": "The audience email",
+            "example": "example@gmail.com"
+          }
+        }
+      },
+      "FormTemplate": {
+        "description": "A form template",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The form template id",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "The form template title",
+            "example": "Form template 1"
+          },
+          "description": {
+            "type": "string",
+            "description": "The form template description",
+            "example": "Form template 1 description"
+          },
+          "version_number": {
+            "type": "integer",
+            "description": "The form template version number",
+            "example": 1
+          }
+        }
+      },
+      "LibraryForForm": {
+        "description": "A library",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The library id",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "The library name",
+            "example": "Library 1"
+          }
+        }
+      },
+      "User": {
+        "description": "A user",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The user id",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "The user email",
+            "example": "example@gmail.com"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "The user uuid",
+            "example": "cded555c-3730-4711-a018-081a928fbfbf"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The user first name",
+            "example": "First"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The user last name",
+            "example": "Last"
+          }
+        }
+      },
+      "SearchableAttributes": {
+        "description": "A list of searchable attributes",
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchableAttribute"
+            }
+          }
+        }
+      },
+      "SearchableAttribute": {
+        "description": "A searchable attribute",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The searchable attribute title",
+            "example": "Title"
+          },
+          "position": {
+            "type": "integer",
+            "description": "The searchable attribute position",
+            "example": 1
+          },
+          "is_metadata": {
+            "type": "boolean",
+            "description": "The searchable attribute is metadata",
+            "example": true
+          },
+          "accessor": {
+            "type": "string",
+            "description": "The searchable attribute accessor",
+            "example": "title"
+          },
+          "type": {
+            "type": "string",
+            "description": "The searchable attribute type",
+            "example": "single_line"
+          },
+          "options": {
+            "type": "array",
+            "description": "The searchable attribute options",
+            "items": {
+              "type": "string",
+              "example": "Option 1"
+            }
+          }
+        }
+      },
+      "Assets": {
+        "description": "A list of assets",
+        "type": "object",
+        "properties": {
+          "hits": {
+            "type": "number",
+            "description": "The total number of assets",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "description": "The current page number",
+            "example": 1
+          },
+          "trial_name": {
+            "type": "string",
+            "description": "The trial name",
+            "example": "Trial 1"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Asset"
+            }
+          }
+        }
+      },
+      "Asset": {
+        "description": "An asset",
+        "type": "object",
+        "properties": {
+          "trial_name": {
+            "type": "string",
+            "description": "The trial name",
+            "example": "Trial 1"
+          },
+          "trial_id": {
+            "type": "integer",
+            "description": "The trial id",
+            "example": 1
+          },
+          "library_name": {
+            "type": "string",
+            "description": "The library name",
+            "example": "Library 1"
+          },
+          "library_id": {
+            "type": "integer",
+            "description": "The library id",
+            "example": 1
+          },
+          "asset_id": {
+            "type": "integer",
+            "description": "The asset id",
+            "example": 1
+          },
+          "asset_title": {
+            "type": "string",
+            "description": "The asset title",
+            "example": "Asset 1"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The asset creation date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "uploaded_by": {
+            "type": "string",
+            "description": "The asset uploader",
+            "example": "Uploader 1"
+          },
+          "info_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InfoField"
+            }
+          },
+          "comments": {
+            "type": "string",
+            "description": "The asset comments",
+            "example": "Comments 1"
+          },
+          "reviewed_by": {
+            "type": "string",
+            "description": "The asset reviewer",
+            "example": "Reviewer 1"
+          },
+          "reviewed_date": {
+            "type": "string",
+            "description": "The asset review date",
+            "example": "2020-01-01T00:00:00.000Z"
+          },
+          "filesize": {
+            "type": "string",
+            "description": "The asset filesize",
+            "example": "1.0 MB"
+          },
+          "asset_link": {
+            "type": "string",
+            "description": "The asset link",
+            "example": "https://www.chillipharm.com"
+          },
+          "forms": {
+            "type": "string",
+            "description": "The asset forms",
+            "example": "Form 1"
+          }
+        }
+      },
+      "InfoField": {
+        "description": "An info field",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The info field type",
+            "example": "text"
+          },
+          "name": {
+            "type": "string",
+            "description": "The info field name",
+            "example": "Info Field 1"
+          },
+          "key": {
+            "type": "string",
+            "description": "The info field key",
+            "example": "info_field_1"
+          },
+          "value": {
+            "type": "string",
+            "description": "The info field value",
+            "example": "Info Field Value 1"
+          }
+        }
+      },
+      "StaticFilters": {
+        "description": "A list of static filters",
+        "type": "object",
+        "properties": {
+          "libraries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Library"
+            }
+          },
+          "uploaders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Uploader"
+            }
+          },
+          "asset_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetId"
+            }
+          }
+        }
+      },
+      "Library": {
+        "description": "A library",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The library name",
+            "example": "Library 1"
+          },
+          "value": {
+            "type": "integer",
+            "description": "The library id",
+            "example": 1
+          }
+        }
+      },
+      "Uploader": {
+        "description": "An uploader",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The uploader name",
+            "example": "Uploader 1"
+          },
+          "value": {
+            "type": "integer",
+            "description": "The uploader id",
+            "example": 1
+          }
+        }
+      },
+      "AssetId": {
+        "description": "An asset id",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "integer",
+            "description": "The asset id",
+            "example": 1
+          },
+          "value": {
+            "type": "integer",
+            "description": "The asset id",
+            "example": 1
+          }
+        }
+      },
+      "FormTemplates": {
+        "description": "A list of form templates",
+        "type": "object",
+        "properties": {
+          "form_templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormTemplateForReporting"
+            }
+          }
+        }
+      },
+      "FormTemplateForReporting": {
+        "description": "A form template",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The form template id",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "The form template title",
+            "example": "Form Template 1"
+          },
+          "number_of_forms": {
+            "type": "integer",
+            "description": "The number of forms",
+            "example": 1
           }
         }
       },
