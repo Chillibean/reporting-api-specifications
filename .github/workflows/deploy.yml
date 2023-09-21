@@ -87,6 +87,6 @@ jobs:
       - name: Publish to Swagger Hub
         run: |
           curl -X POST "https://api.swaggerhub.com/apis/chillibean/reporting-api" \
-          -H "Authorization: $" \
+          -H "Authorization: ${{ secrets.SWAGGER_API_KEY }}" \
           -H "Content-Type: application/json" \
           --data-binary "@./public/openApi.json"
