@@ -54,7 +54,7 @@
             "name": "page",
             "in": "query",
             "description": "The page number",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "integer",
               "example": 1
@@ -356,7 +356,7 @@
             "name": "page",
             "in": "query",
             "description": "The page number",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "integer",
               "example": 1
