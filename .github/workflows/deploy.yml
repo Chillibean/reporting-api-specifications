@@ -51,8 +51,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./public/openApi.json
-          asset_name: openApi.json
+          asset_path: ./public/schema.json
+          asset_name: schema.json
           asset_content_type: application/json
       - name: Publish Release
         uses: eregon/publish-release@v1
@@ -75,7 +75,7 @@ jobs:
         run: |
           curl -X POST https://api.github.com/repos/Chillibean/reporting-api-client-sdk/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.API_CLIENT_SDK_SECRET }} \
+          -u ${{ secrets.API_SPEC_PAT_TOKEN }} \
           --data '{"event_type": "trigger_workflow", "client_payload": { "version": "${{ needs.generate-release.outputs.version }}" }}'
       - uses: actions/checkout@v3
   
@@ -89,4 +89,4 @@ jobs:
           curl -X POST "https://api.swaggerhub.com/apis/chillibean/reporting-api" \
           -H "Authorization: ${{ secrets.SWAGGER_API_KEY }}" \
           -H "Content-Type: application/json" \
-          --data-binary "@./public/openApi.json"
+          --data-binary "@./public/schema.json"

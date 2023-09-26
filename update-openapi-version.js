@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const openApiFilePath = "./public/openApi.json";
+const openApiFilePath = "./public/schema.json";
 const openApiData = JSON.parse(fs.readFileSync(openApiFilePath, "utf-8"));
 
 const packageJsonPath = "./package.json";
