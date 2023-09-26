@@ -6,7 +6,7 @@
 
 Welcome to the Reporting API Specifications repository, the central hub for all specifications and documentation related to Reporting API.
 
-The most critical file here is **`/public/openApi.json`**. This file serves as the backbone for our API documentation and specification.
+The most critical file here is **`/public/schema.json`**. This file serves as the backbone for our API documentation and specification.
 
 ## **Installation**
 
@@ -41,7 +41,7 @@ Before you start, it's crucial to understand our Versioning and Branches guideli
 
 ## **Versioning**
 
-You can bump the versions in **`package.json`** and **`/public/openApi.json`** by running:
+You can bump the versions in **`package.json`** and **`/public/schema.json`** by running:
 
 ```bash
 
@@ -68,7 +68,7 @@ Here's an example of the development workflow:
 3. Create a branch from **`main`** with a new release number, such as **`1.0.11`**.
 4. **`1.0.11`** becomes the release branch.
 5. Create another branch named **`task/add-users-endpoint`**.
-6. Update **`/public/openApi.json`** to include the new users' endpoint.
+6. Update **`/public/schema.json`** to include the new users' endpoint.
 7. Run **`npm version 1.0.11-alpha.0`**.
 8. Push to GitHub and create a pull request.
 9. A pre-release is generated, the Client SDK is rebuilt, and the package is published.
@@ -79,9 +79,9 @@ Here's an example of the development workflow:
 14. Update your service with the new **`1.0.11`** version.
 15. Repeat!
 
-Remember to edit the **`/public/openApi.json`** file as needed to reflect the correct updated API specs.
+Remember to edit the **`/public/schema.json`** file as needed to reflect the correct updated API specs.
 
-## **`/public/openApi.json` - IMPORTANT**
+## **`/public/schema.json` - IMPORTANT**
 
 This file is the cornerstone of our repository. It contains all the specs for the Reporting API API.
 
@@ -103,15 +103,15 @@ Key elements within the JSON file:
 
 You can access the documentation at **[https://chillibean.github.io/reporting-api/](https://chillibean.github.io/%7B%7BapiPackageName%7D%7D-specifications/)**.
 
-The OpenAPI JSON file is available at **[https://chillibean.github.io/reporting-api/openApi.json](https://chillibean.github.io/%7B%7BapiPackageName%7D%7D-specifications/openApi.json)**.
+The OpenAPI JSON file is available at **[https://chillibean.github.io/reporting-api/schema.json](https://chillibean.github.io/%7B%7BapiPackageName%7D%7D-specifications/schema.json)**.
 
 ## **GitHub Workflows**
 
 There are two workflows attached to this repository:
 
-**`deploy.yml`**: This workflow handles any branch merged into **`main`**. It automatically triggers a new release with an artifact attached (**`/public/openApi.json`**). It also updates and publishes the Client SDK with the latest release and updates GitHub Pages.
+**`deploy.yml`**: This workflow handles any branch merged into **`main`**. It automatically triggers a new release with an artifact attached (**`/public/schema.json`**). It also updates and publishes the Client SDK with the latest release and updates GitHub Pages.
 
-**`push-to-branch.yml`**: This workflow manages alpha releases. If a developer sets an alpha release version, it creates an alpha pre-release with an attached artifact (**`/public/openApi.json`**). It then triggers the Client SDK to rebuild and publish with the updated alpha pre-release.
+**`push-to-branch.yml`**: This workflow manages alpha releases. If a developer sets an alpha release version, it creates an alpha pre-release with an attached artifact (**`/public/schema.json`**). It then triggers the Client SDK to rebuild and publish with the updated alpha pre-release.
 
 **`enforce-semantic-versioning.yml`**: This configuration file serves the purpose of enforcing strict adherence to semantic versioning rules within your project. It ensures that merging into the main branch is only possible when the release branch follows the correct formatting, which includes the major.minor.patch versioning scheme (e.g., 1.0.1, 1.0.2, 3.0.2).
 
@@ -119,12 +119,12 @@ There are two workflows attached to this repository:
 
 The **`pre-commit`** file validates changes before committing. It checks:
 
-- If the versions in **`package.json`** and **`/public/openApi.json`** match.
-- Linting in the **`/public/openApi.json`** file.
+- If the versions in **`package.json`** and **`/public/schema.json`** match.
+- Linting in the **`/public/schema.json`** file.
 
 ## **Linting**
 
-You can run **`npm run verify`** to check the contents of **`/public/openApi.json`** for correctness.
+You can run **`npm run verify`** to check the contents of **`/public/schema.json`** for correctness.
 
 *Note: This check is automatically performed before each commit.*
 
@@ -140,7 +140,7 @@ You can run **`npm run verify`** to check the contents of **`/public/openApi.jso
 8. **`bump-alpha-version.sh`**: A shell script that likely automates the process of bumping the alpha version of your project.
 9. **`index.html`**: The main HTML file for your web application, which serves as the entry point for your front-end.
 10. **`package.json`**: The package.json file contains metadata and dependencies for your project, often used in Node.js projects.
-11. **`public/openApi.json`**: A JSON file that holds the OpenAPI specification for your API, which may be used for documentation or code generation.
+11. **`public/schema.json`**: A JSON file that holds the OpenAPI specification for your API, which may be used for documentation or code generation.
 12. **`src/App.jsx`**: A JSX file, likely the entry point for your React application, where you define the main component of your app.
 13. **`src/main.jsx`**: Another JSX file that might be part of your React project, potentially the entry point for your application.
 14. **`update-openapi-version.js`**: A JavaScript file used for updating the version of your OpenAPI specification programmatically.

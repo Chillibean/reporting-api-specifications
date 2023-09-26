@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "version": "npm version && chmod +x update-version.sh && ./update-version.sh",
-    "verify": "openapi-linter lint ./public/openApi.json -f json -e error"
+    "verify": "openapi-linter lint ./public/schema.json -f json -e error"
   },
   "dependencies": {
     "react": "^18.2.0",

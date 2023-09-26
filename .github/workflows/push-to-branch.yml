@@ -64,8 +64,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./public/openApi.json
-          asset_name: openApi.json
+          asset_path: ./public/schema.json
+          asset_name: schema.json
           asset_content_type: application/json
       - name: Publish Alpha Release
         uses: eregon/publish-release@v1
