@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.4.0",
+    "version": "1.4.1",
     "title": "Reporting API",
     "description": "This is the API specifications for all the endpoints that have to do with the reporting service.",
     "contact": {
@@ -81,7 +81,9 @@
             }
           }
         ],
-        "tags": ["Assets"],
+        "tags": [
+          "Assets"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -133,7 +135,9 @@
             }
           }
         ],
-        "tags": ["Assets"],
+        "tags": [
+          "Assets"
+        ],
         "responses": {
           "200": {
             "description": "Successful export",
@@ -187,7 +191,9 @@
             }
           }
         ],
-        "tags": ["Form Templates"],
+        "tags": [
+          "Form Templates"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -239,7 +245,9 @@
             }
           }
         ],
-        "tags": ["Assets"],
+        "tags": [
+          "Assets"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -291,7 +299,9 @@
             }
           }
         ],
-        "tags": ["Assets"],
+        "tags": [
+          "Assets"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -373,7 +383,9 @@
             }
           }
         ],
-        "tags": ["Forms"],
+        "tags": [
+          "Forms"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -435,7 +447,9 @@
             }
           }
         ],
-        "tags": ["Forms"],
+        "tags": [
+          "Forms"
+        ],
         "responses": {
           "200": {
             "description": "Successful export",
