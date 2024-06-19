@@ -99,9 +99,9 @@ jobs:
           -H "Authorization: ${{ secrets.SWAGGER_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{"private": true}'
-      - name: Publish the API
+      - name: Set Version Default
         run: |
-          curl -X PUT "https://api.swaggerhub.com/apis/chillibean/reporting-api/${{ steps.vars.outputs.npm_version }}/settings/lifecycle" \
+          curl -X PUT "https://api.swaggerhub.com/apis/chillibean/reporting-api/settings/default" \
           -H "Authorization: ${{ secrets.SWAGGER_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d '{"published": true}'
+          -d '{"version": "${{ steps.vars.outputs.npm_version }}" }'
