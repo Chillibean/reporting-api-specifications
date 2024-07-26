@@ -1,0 +1,75 @@
+{
+  "description": "A field",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The field id",
+      "example": "bb32c03b-72b9-42f7-bb14-5d4ce7f82d5c"
+    },
+    "title": {
+      "type": "string",
+      "description": "The field title",
+      "example": "Single line no validation"
+    },
+    "type": {
+      "type": "string",
+      "description": "The field type",
+      "example": "single_line"
+    },
+    "input_guidance": {
+      "type": "string",
+      "description": "The field input guidance",
+      "example": "This field not required validation"
+    },
+    "value": {
+      "type": "string",
+      "description": "The field value",
+      "example": "Text"
+    },
+    "validations": {
+      "type": "object",
+      "description": "The field validations",
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "The field required validation",
+          "example": true
+        },
+        "input_format": {
+          "type": "string",
+          "description": "The field input format validation",
+          "example": "email"
+        },
+        "character_limit": {
+          "type": "integer",
+          "description": "The field character limit validation",
+          "example": 100
+        },
+        "character_restriction": {
+          "type": "string",
+          "description": "The field character restriction validation",
+          "example": "alpha"
+        }
+      }
+    },
+    "options": {
+      "type": "array",
+      "description": "The field options",
+      "items": {
+        "type": "string",
+        "example": "Option 1"
+      }
+    },
+    "other_enabled": {
+      "type": "boolean",
+      "description": "The field other enabled",
+      "example": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "The field enabled",
+      "example": true
+    }
+  }
+}

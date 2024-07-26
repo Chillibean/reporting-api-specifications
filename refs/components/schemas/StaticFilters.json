@@ -1,0 +1,24 @@
+{
+  "description": "A list of static filters",
+  "type": "object",
+  "properties": {
+    "libraries": {
+      "type": "array",
+      "items": {
+        "$ref": "./Library.json"
+      }
+    },
+    "uploaders": {
+      "type": "array",
+      "items": {
+        "$ref": "./Uploader.json"
+      }
+    },
+    "asset_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./AssetId.json"
+      }
+    }
+  }
+}

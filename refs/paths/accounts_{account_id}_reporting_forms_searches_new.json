@@ -1,0 +1,84 @@
+{
+  "get": {
+    "summary": "Get all forms",
+    "security": [
+      {
+        "userSessionKey": []
+      },
+      {
+        "chillipharmSession": []
+      }
+    ],
+    "operationId": "getForms",
+    "description": "Get all account forms for reporting",
+    "parameters": [
+      {
+        "name": "account_id",
+        "in": "path",
+        "description": "The account id",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "2"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The page number",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "example": 1
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "The number of forms per page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "example": 10
+        }
+      },
+      {
+        "name": "q",
+        "in": "query",
+        "description": "The search term to determine the form template",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "{\"form_template_id\":\"2\"}"
+        }
+      }
+    ],
+    "tags": [
+      "Forms"
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Forms.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequest.json"
+      },
+      "401": {
+        "$ref": "../components/responses/Unauthorized.json"
+      },
+      "409": {
+        "$ref": "../components/responses/Conflict.json"
+      },
+      "500": {
+        "$ref": "../components/responses/InternalServerError.json"
+      }
+    }
+  }
+}

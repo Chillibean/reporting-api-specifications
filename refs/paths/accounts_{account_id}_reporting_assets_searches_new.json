@@ -1,0 +1,84 @@
+{
+  "get": {
+    "summary": "Get all assets",
+    "operationId": "getAssets",
+    "security": [
+      {
+        "userSessionKey": []
+      },
+      {
+        "chillipharmSession": []
+      }
+    ],
+    "description": "Get all account assets for reporting",
+    "parameters": [
+      {
+        "name": "account_id",
+        "in": "path",
+        "description": "The account id",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "2"
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "The page number",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "example": 1
+        }
+      },
+      {
+        "name": "per_page",
+        "in": "query",
+        "description": "The number of assets per page",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "example": 10
+        }
+      },
+      {
+        "name": "s",
+        "in": "query",
+        "description": "The search term in JSON to handle any filtering",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "{\"all_info_fields_must_match\":\"true\",\"relative_upload_time_range\":\"all_time\",\"search_fields\":{},\"static_search_fields\":{\"library_id\":[4],\"id\":[],\"uploader.id\":[]}}"
+        }
+      }
+    ],
+    "tags": [
+      "Assets"
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../components/schemas/Assets.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequest.json"
+      },
+      "401": {
+        "$ref": "../components/responses/Unauthorized.json"
+      },
+      "409": {
+        "$ref": "../components/responses/Conflict.json"
+      },
+      "500": {
+        "$ref": "../components/responses/InternalServerError.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "description": "An asset",
+  "type": "object",
+  "properties": {
+    "trial_name": {
+      "type": "string",
+      "description": "The trial name",
+      "example": "Trial 1"
+    },
+    "trial_id": {
+      "type": "integer",
+      "description": "The trial id",
+      "example": 1
+    },
+    "library_name": {
+      "type": "string",
+      "description": "The library name",
+      "example": "Library 1"
+    },
+    "library_id": {
+      "type": "integer",
+      "description": "The library id",
+      "example": 1
+    },
+    "asset_id": {
+      "type": "integer",
+      "description": "The asset id",
+      "example": 1
+    },
+    "asset_title": {
+      "type": "string",
+      "description": "The asset title",
+      "example": "Asset 1"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The asset creation date",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "uploaded_by": {
+      "type": "string",
+      "description": "The asset uploader",
+      "example": "Uploader 1"
+    },
+    "info_fields": {
+      "type": "array",
+      "items": {
+        "$ref": "./InfoField.json"
+      }
+    },
+    "comments": {
+      "type": "string",
+      "description": "The asset comments",
+      "example": "Comments 1"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "The asset reviewer",
+      "example": "Reviewer 1"
+    },
+    "reviewed_date": {
+      "type": "string",
+      "description": "The asset review date",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "filesize": {
+      "type": "string",
+      "description": "The asset filesize",
+      "example": "1.0 MB"
+    },
+    "asset_link": {
+      "type": "string",
+      "description": "The asset link",
+      "example": "https://www.chillipharm.com"
+    },
+    "forms": {
+      "type": "string",
+      "description": "The asset forms",
+      "example": "Form 1"
+    }
+  }
+}

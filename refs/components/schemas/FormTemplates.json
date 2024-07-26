@@ -1,0 +1,12 @@
+{
+  "description": "A list of form templates",
+  "type": "object",
+  "properties": {
+    "form_templates": {
+      "type": "array",
+      "items": {
+        "$ref": "./FormTemplateForReporting.json"
+      }
+    }
+  }
+}
