@@ -1,0 +1,66 @@
+{
+  "get": {
+    "summary": "Export forms",
+    "security": [
+      {
+        "userSessionKey": []
+      },
+      {
+        "chillipharmSession": []
+      }
+    ],
+    "operationId": "exportForms",
+    "description": "Export forms for reporting",
+    "parameters": [
+      {
+        "name": "account_id",
+        "in": "path",
+        "description": "The account id",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "2"
+        }
+      },
+      {
+        "name": "q",
+        "in": "query",
+        "description": "The search term to determine the form template",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "{\"form_template_id\":\"2\"}"
+        }
+      }
+    ],
+    "tags": [
+      "Forms"
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful export",
+        "content": {
+          "application/octet-stream": {
+            "schema": {
+              "type": "string",
+              "format": "binary",
+              "example": "PK!�E�@J,[Content_Types].xml���"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../components/responses/BadRequest.json"
+      },
+      "401": {
+        "$ref": "../components/responses/Unauthorized.json"
+      },
+      "409": {
+        "$ref": "../components/responses/Conflict.json"
+      },
+      "500": {
+        "$ref": "../components/responses/InternalServerError.json"
+      }
+    }
+  }
+}

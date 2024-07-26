@@ -1,0 +1,42 @@
+{
+  "description": "A state",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The state id",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "The state name",
+      "example": "Rejected"
+    },
+    "type": {
+      "type": "string",
+      "description": "The state type",
+      "example": "rejected"
+    },
+    "options": {
+      "type": "object",
+      "description": "The state options",
+      "properties": {
+        "editable": {
+          "type": "boolean",
+          "description": "The state editable option",
+          "example": true
+        },
+        "deletable": {
+          "type": "boolean",
+          "description": "The state deletable option",
+          "example": true
+        },
+        "can_add_comments": {
+          "type": "boolean",
+          "description": "The state can add comments option",
+          "example": true
+        }
+      }
+    }
+  }
+}

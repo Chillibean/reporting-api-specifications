@@ -1,0 +1,26 @@
+{
+  "description": "An audience",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The audience id",
+      "example": 1
+    },
+    "first_name": {
+      "type": "string",
+      "description": "The audience first name",
+      "example": "First"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "The audience last name",
+      "example": "Last"
+    },
+    "email": {
+      "type": "string",
+      "description": "The audience email",
+      "example": "example@gmail.com"
+    }
+  }
+}

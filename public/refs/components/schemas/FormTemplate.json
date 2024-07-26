@@ -1,0 +1,26 @@
+{
+  "description": "A form template",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The form template id",
+      "example": 1
+    },
+    "title": {
+      "type": "string",
+      "description": "The form template title",
+      "example": "Form template 1"
+    },
+    "description": {
+      "type": "string",
+      "description": "The form template description",
+      "example": "Form template 1 description"
+    },
+    "version_number": {
+      "type": "integer",
+      "description": "The form template version number",
+      "example": 1
+    }
+  }
+}

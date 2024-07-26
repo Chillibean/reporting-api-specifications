@@ -1,0 +1,26 @@
+{
+  "description": "An info field",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The info field type",
+      "example": "text"
+    },
+    "name": {
+      "type": "string",
+      "description": "The info field name",
+      "example": "Info Field 1"
+    },
+    "key": {
+      "type": "string",
+      "description": "The info field key",
+      "example": "info_field_1"
+    },
+    "value": {
+      "type": "string",
+      "description": "The info field value",
+      "example": "Info Field Value 1"
+    }
+  }
+}

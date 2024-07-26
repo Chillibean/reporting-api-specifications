@@ -1,0 +1,63 @@
+{
+  "description": "A transition",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The transition id",
+      "example": "dfe077d7-47c8-4d78-821b-72b07483831c"
+    },
+    "name": {
+      "type": "string",
+      "description": "The transition name",
+      "example": "Reinstate"
+    },
+    "requires_signatures": {
+      "type": "array",
+      "description": "The transition requires signatures",
+      "items": {
+        "$ref": "./Signature.json"
+      }
+    },
+    "audience": {
+      "type": "array",
+      "description": "The transition audience",
+      "items": {
+        "$ref": "./Audience.json"
+      }
+    },
+    "options": {
+      "type": "object",
+      "description": "The transition options",
+      "properties": {
+        "skip_validation": {
+          "type": "boolean",
+          "description": "The transition skip validation option",
+          "example": true
+        }
+      }
+    },
+    "activity_text": {
+      "type": "string",
+      "description": "The transition activity text",
+      "example": "Reinstated"
+    },
+    "signature_definitions": {
+      "type": "array",
+      "description": "The transition signature definitions",
+      "items": {
+        "$ref": "./SignatureDefinition.json"
+      }
+    },
+    "requires_reason_for_change": {
+      "type": "boolean",
+      "description": "The transition requires reason for change",
+      "example": true
+    },
+    "requires_review_comments": {
+      "type": "boolean",
+      "description": "The transition requires review comments",
+      "example": true
+    }
+  }
+}

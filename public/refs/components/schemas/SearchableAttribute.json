@@ -1,0 +1,39 @@
+{
+  "description": "A searchable attribute",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The searchable attribute title",
+      "example": "Title"
+    },
+    "position": {
+      "type": "integer",
+      "description": "The searchable attribute position",
+      "example": 1
+    },
+    "is_metadata": {
+      "type": "boolean",
+      "description": "The searchable attribute is metadata",
+      "example": true
+    },
+    "accessor": {
+      "type": "string",
+      "description": "The searchable attribute accessor",
+      "example": "title"
+    },
+    "type": {
+      "type": "string",
+      "description": "The searchable attribute type",
+      "example": "single_line"
+    },
+    "options": {
+      "type": "array",
+      "description": "The searchable attribute options",
+      "items": {
+        "type": "string",
+        "example": "Option 1"
+      }
+    }
+  }
+}
