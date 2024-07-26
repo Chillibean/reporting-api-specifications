@@ -1,0 +1,109 @@
+{
+  "description": "A form",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The form id",
+      "example": 1
+    },
+    "version_number": {
+      "type": "integer",
+      "description": "The form version number",
+      "example": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The form creation date",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "./Field.json"
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "$ref": "./Signature.json"
+      }
+    },
+    "current_state": {
+      "$ref": "./State.json"
+    },
+    "current_transitions": {
+      "type": "array",
+      "items": {
+        "$ref": "./Transition.json"
+      }
+    },
+    "library": {
+      "$ref": "./LibraryForForm.json"
+    },
+    "user": {
+      "$ref": "./User.json"
+    },
+    "trial_name": {
+      "type": "string",
+      "description": "The trial name",
+      "example": "Trial 1"
+    },
+    "library_name": {
+      "type": "string",
+      "description": "The library name",
+      "example": "Library 1"
+    },
+    "asset_id": {
+      "type": "integer",
+      "description": "The asset id",
+      "example": 1
+    },
+    "asset_upload_date": {
+      "type": "string",
+      "description": "The asset upload date",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "asset_title": {
+      "type": "string",
+      "description": "The asset title",
+      "example": "Asset 1"
+    },
+    "asset_link": {
+      "type": "string",
+      "description": "The asset link",
+      "example": "https://www.chillipharm.com"
+    },
+    "form_template": {
+      "$ref": "./FormTemplate.json"
+    },
+    "uuid": {
+      "type": "string",
+      "description": "The form uuid",
+      "example": "c74a0ef6-5378-493c-8000-38ce8a72a795"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "./History.json"
+      }
+    },
+    "audience": {
+      "type": "array",
+      "items": {
+        "$ref": "./Audience.json"
+      }
+    },
+    "form_link": {
+      "type": "string",
+      "description": "The form link",
+      "example": "https://www.chillipharm.com"
+    },
+    "version_history": {
+      "type": "array",
+      "items": {
+        "$ref": "./History.json"
+      }
+    }
+  }
+}

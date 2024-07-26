@@ -1,0 +1,16 @@
+{
+  "description": "An asset id",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "integer",
+      "description": "The asset id",
+      "example": 1
+    },
+    "value": {
+      "type": "integer",
+      "description": "The asset id",
+      "example": 1
+    }
+  }
+}

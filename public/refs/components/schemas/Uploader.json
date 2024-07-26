@@ -1,0 +1,16 @@
+{
+  "description": "An uploader",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The uploader name",
+      "example": "Uploader 1"
+    },
+    "value": {
+      "type": "integer",
+      "description": "The uploader id",
+      "example": 1
+    }
+  }
+}

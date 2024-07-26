@@ -1,0 +1,41 @@
+{
+  "description": "A signature definition",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The signature definition id",
+      "example": "64ccf8852eed6a0011a41893"
+    },
+    "meaning": {
+      "type": "string",
+      "description": "The signature definition meaning",
+      "example": "Authorship"
+    },
+    "reason": {
+      "type": "string",
+      "description": "The signature definition reason",
+      "example": "I am the author of this document"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The signature definition creation date",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "object_uuid": {
+      "type": "string",
+      "description": "The signature definition object uuid",
+      "example": "c74a0ef6-5378-493c-8000-38ce8a72a795"
+    },
+    "user_uuid": {
+      "type": "string",
+      "description": "The signature definition user uuid",
+      "example": "cded555c-3730-4711-a018-081a928fbfbf"
+    },
+    "verification_status": {
+      "type": "boolean",
+      "description": "The signature definition verification status",
+      "example": true
+    }
+  }
+}
